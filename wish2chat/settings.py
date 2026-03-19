@@ -23,10 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-ayi+_p5*)$!emzc3wkdzu!spwi@)nb0=+%f!(565i$t0n*3s-6"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', 'www.wish2chat.shreejifintech.com']
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://www.wish2chat.shreejifintech.com",
+]
 
 # Application definition
 
@@ -108,13 +111,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
-
-TIME_ZONE = "UTC"
-
+TIME_ZONE = 'Asia/Kolkata'
 USE_I18N = True
 
+# settings.py
+DATETIME_FORMAT = "d M Y, P"  # e.g., 21 Feb 2026, 12:40 p.m.
+USE_L10N = False  # Make Django use your DATETIME_FORMAT instead of locale default
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
@@ -123,6 +126,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -144,3 +148,9 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny', # Default to public, lock down specific views
     ],
 }
+# ✅ HTTPS FIX (important behind nginx)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# ✅ COOKIES (production safe)
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
