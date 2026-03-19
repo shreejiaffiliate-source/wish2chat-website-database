@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from rest_framework import viewsets, filters, status
 from rest_framework.views import APIView
 from rest_framework.decorators import action, api_view, permission_classes
@@ -296,3 +297,7 @@ class BulkUploadAPI(APIView):
             return Response({"error": f"Sub Category '{sub_name}' not found"}, status=404)
         except Exception as e:
             return Response({"error": str(e)}, status=500)
+        
+def api_home(request):
+    # This tells Django to look for home.html inside your templates folder
+    return render(request, 'home.html')

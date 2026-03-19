@@ -14,24 +14,11 @@ from core.views import (
     get_user_favorites,
     get_user_profile, 
     update_profile_details, # ✅ Import
-    upload_profile_picture  # ✅ Import
+    upload_profile_picture ,
+     api_home # ✅ Import
 )
 from django.conf import settings
 from django.conf.urls.static import static
-
-def home(request):
-    return JsonResponse({
-        "message": "Wish2Chat API is Running",
-        "endpoints": {
-            "masters": "/api/masters/",
-            "sub_categories": "/api/sub-categories/",
-            "contents": "/api/contents/",
-            "register": "/api/register/",
-            "user_stats": "/api/user-stats/",
-            "favorites": "/api/favorites/",
-            "profile": "/api/profile/",
-        }
-    })
 
 router = DefaultRouter()
 router.register(r'masters', CategoryMasterViewSet)
@@ -39,7 +26,7 @@ router.register(r'sub-categories', SubCategoryViewSet)
 router.register(r'contents', ContentViewSet)
 
 urlpatterns = [
-    path('', home),
+    path('', api_home, name='home'),
     path('admin/', admin.site.urls),
     path('api/register/', RegisterUserView.as_view(), name='register'),
     path('api/', include(router.urls)),
