@@ -135,16 +135,24 @@
         font-weight: 600;
       }
       
+      /* ✅ UPDATED: Added link styling for the paths */
       .api-path {
         color: var(--primary);
         font-family: monospace;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+      
+      .api-path:hover {
+        color: var(--primary-light);
+        text-decoration: underline;
       }
       
       .logo-img {
         width: 100%;
         height: 100%;
-        object-fit: cover; /* Keeps the image proportions nice */
-        border-radius: 20px; /* Matches the box's curves */
+        object-fit: cover;
+        border-radius: 20px;
       }
       
       @keyframes pulse {
@@ -181,19 +189,19 @@
         <h3>Active Endpoints</h3>
         <div class="api-item">
           <span class="api-name">Master Categories</span>
-          <span class="api-path">/api/masters/</span>
+          <a href="/api/masters/" class="api-path">/api/masters/</a>
         </div>
         <div class="api-item">
           <span class="api-name">Sub Categories</span>
-          <span class="api-path">/api/sub-categories/</span>
+          <a href="/api/sub-categories/" class="api-path">/api/sub-categories/</a>
         </div>
         <div class="api-item">
           <span class="api-name">Content Data</span>
-          <span class="api-path">/api/contents/</span>
+          <a href="/api/contents/" class="api-path">/api/contents/</a>
         </div>
         <div class="api-item">
           <span class="api-name">User Profile</span>
-          <span class="api-path">/api/profile/</span>
+          <a href="/api/profile/" class="api-path">/api/profile/</a>
         </div>
       </div>
     </div>
