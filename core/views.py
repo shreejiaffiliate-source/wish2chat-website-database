@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 from rest_framework import viewsets, filters, status
 from django.shortcuts import render
 import random
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import EmailOTP
+=======
+from django.shortcuts import render
+from rest_framework import viewsets, filters, status
+>>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
 from rest_framework.views import APIView
 from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.response import Response
@@ -12,16 +17,23 @@ from rest_framework.authtoken.models import Token
 from rest_framework.parsers import MultiPartParser, FormParser
 from django_filters.rest_framework import DjangoFilterBackend
 from django.http import JsonResponse
+<<<<<<< HEAD
 from django.contrib.auth.models import User
+=======
+>>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
 from django.utils import timezone
 from django.contrib.auth import authenticate
 from django.db.models import Count, Q
 from django.core.files.storage import default_storage 
 from django.core.files.base import ContentFile       
 from datetime import timedelta
+<<<<<<< HEAD
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from .models import CategoryMaster, SubCategory, Content, UserDetailShareContent, EmailOTP, FCMDevice, UserProfile
+=======
+from .models import CategoryMaster, SubCategory, Content, UserDetailShareContent
+>>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
 from .serializers import (
     CategoryMasterSerializer, 
     SubCategorySerializer, 
@@ -33,10 +45,13 @@ from .serializers import (
 # 🔒 SECRET KEY FOR REMOTE UPLOADS
 UPLOAD_SECRET_KEY = "MySuperSecretUploadPassword2026"
 
+<<<<<<< HEAD
 def api_home(request):
     # This tells Django to look for home.html inside your templates folder
     return render(request, 'home.html')
 
+=======
+>>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
 class CategoryMasterViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = CategoryMaster.objects.filter(is_active=True)
     serializer_class = CategoryMasterSerializer
@@ -189,6 +204,7 @@ def upload_profile_picture(request):
     if not file:
         return Response({"error": "No file uploaded"}, status=400)
 
+<<<<<<< HEAD
     # ✅ 1. Sahi jagah save karo: UserProfile model mein
     # get_or_create use kar rahe hain taaki agar profile na ho toh ban jaye
     profile, created = UserProfile.objects.get_or_create(user=user)
@@ -212,11 +228,27 @@ def upload_profile_picture(request):
         "message": "Profile picture updated successfully", 
         "url": image_url
     }, status=200)
+=======
+    file_path = default_storage.save(f"profiles/{user.id}_{file.name}", ContentFile(file.read()))
+    file_url = f"/media/{file_path}" 
+    
+    UserDetailShareContent.objects.create(
+        user=user,
+        category=None, 
+        sub_category=None,
+        share_type='image',
+        activity_type='profile_picture', 
+        data=file_url 
+    )
+    
+    return Response({"message": "Profile picture updated", "url": file_url})
+>>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_user_profile(request):
     user = request.user
+<<<<<<< HEAD
     profile = getattr(user, 'profile', None)
     
     image_url = None
@@ -226,6 +258,14 @@ def get_user_profile(request):
             image_url = request.build_absolute_uri(profile.profile_picture.url)
         except ValueError:
             image_url = None
+=======
+    latest_pic_log = UserDetailShareContent.objects.filter(
+        user=user, 
+        activity_type='profile_picture'
+    ).order_by('-created_at').first()
+    
+    image_url = latest_pic_log.data if latest_pic_log else None
+>>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
 
     return Response({
         "id": user.id,
@@ -235,11 +275,28 @@ def get_user_profile(request):
         "last_name": user.last_name,
         "profile_picture": image_url 
     })
+<<<<<<< HEAD
+=======
+
+class RegisterUserView(APIView):
+    def post(self, request):
+        serializer = UserRegistrationSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({
+                "message": "User registered successfully", 
+                "token": token.key,
+                "user_id": user.id
+            }, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+>>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
     
 class LoginView(APIView):
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
+<<<<<<< HEAD
         
         # 1. Check karo user exists or not
         from django.contrib.auth.models import User
@@ -249,6 +306,9 @@ class LoginView(APIView):
         # 2. Agar user hai, toh password verify karo
         user = authenticate(username=username, password=password)
         
+=======
+        user = authenticate(username=username, password=password)
+>>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
         if user:
             token, created = Token.objects.get_or_create(user=user)
             return Response({
@@ -256,12 +316,18 @@ class LoginView(APIView):
                 "user_id": user.id,
                 "username": user.username,
                 "email": user.email,
+<<<<<<< HEAD
                 "first_name": user.first_name,
                 "last_name": user.last_name 
             }, status=status.HTTP_200_OK)
         
         # 3. Agar yahan tak aaya matlab password galat hai
         return Response({"error": "Wrong Password"}, status=status.HTTP_400_BAD_REQUEST)
+=======
+                "first_name": user.first_name 
+            }, status=status.HTTP_200_OK)
+        return Response({"error": "Invalid Username or Password"}, status=status.HTTP_400_BAD_REQUEST)
+>>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
 
 def load_subcategories(request):
     master_id = request.GET.get('master_id')
@@ -320,6 +386,7 @@ class BulkUploadAPI(APIView):
         except Exception as e:
             return Response({"error": str(e)}, status=500)
         
+<<<<<<< HEAD
 class SendOTPView(APIView):
     def post(self, request):
         email = request.data.get('email')
@@ -484,3 +551,8 @@ def save_fcm_token(request):
         )
         return Response({"status": "Token saved"}, status=200)
     return Response({"error": "No token"}, status=400)
+=======
+def api_home(request):
+    # This tells Django to look for home.html inside your templates folder
+    return render(request, 'home.html')
+>>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd

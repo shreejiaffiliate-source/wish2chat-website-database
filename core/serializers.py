@@ -60,6 +60,7 @@ class ContentSerializer(serializers.ModelSerializer):
             return request.build_absolute_uri(obj.file.url)
         return None
     
+<<<<<<< HEAD
 # core/serializers.py
 
 # core/serializers.py
@@ -71,17 +72,30 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'email', 'password', 'mobileNumber', 'first_name', 'last_name', 'profile_picture']
+=======
+class UserRegistrationSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+    mobileNumber = serializers.CharField(write_only=True, required=False)
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password', 'mobileNumber', 'first_name']
+>>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
 
     def create(self, validated_data):
         mobile = validated_data.pop('mobileNumber', '')
         f_name = validated_data.pop('first_name', '')
+<<<<<<< HEAD
         l_name = validated_data.pop('last_name', '')
         profile_pic = validated_data.pop('profile_picture', None) # ✅ Get photo
+=======
+>>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
         
         user = User.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
             password=validated_data['password'],
+<<<<<<< HEAD
             first_name=f_name,
             last_name=l_name
         )
@@ -92,6 +106,14 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             mobile_number=mobile, 
             profile_picture=profile_pic
         )
+=======
+            first_name = f_name
+        )
+
+        if mobile:
+            UserProfile.objects.create(user=user, mobile_number=mobile)
+
+>>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
         return user
     
 class UserShareActivitySerializer(serializers.ModelSerializer):
