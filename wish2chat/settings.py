@@ -23,12 +23,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-ayi+_p5*)$!emzc3wkdzu!spwi@)nb0=+%f!(565i$t0n*3s-6"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-<<<<<<< HEAD
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
-
-=======
 DEBUG = False
 
 ALLOWED_HOSTS = ['*', 'www.wish2chat.shreejifintech.com']
@@ -36,7 +30,6 @@ ALLOWED_HOSTS = ['*', 'www.wish2chat.shreejifintech.com']
 CSRF_TRUSTED_ORIGINS = [
     "https://www.wish2chat.shreejifintech.com",
 ]
->>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
 
 # Application definition
 
@@ -68,18 +61,11 @@ ROOT_URLCONF = "wish2chat.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-<<<<<<< HEAD
-        "DIRS": [os.path.join(BASE_DIR, 'templates')],
-        "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-=======
         "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
->>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
@@ -98,12 +84,6 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-<<<<<<< HEAD
-        "OPTIONS": {
-            "timeout": 20, # 20 seconds tak wait karega agar lock ho toh
-        },
-=======
->>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
     }
 }
 
@@ -139,10 +119,6 @@ DATETIME_FORMAT = "d M Y, P"  # e.g., 21 Feb 2026, 12:40 p.m.
 USE_L10N = False  # Make Django use your DATETIME_FORMAT instead of locale default
 USE_TZ = True
 
-<<<<<<< HEAD
-
-=======
->>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
@@ -157,11 +133,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-<<<<<<< HEAD
-import os
-
-=======
->>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
 # Base URL for serving media files
 MEDIA_URL = '/media/'  # <--- MUST have slashes at start and end
 
@@ -177,21 +148,9 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny', # Default to public, lock down specific views
     ],
 }
-<<<<<<< HEAD
-
-# --- Real Gmail SMTP Configuration ---
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'shreejiaffiliate@gmail.com'
-EMAIL_HOST_PASSWORD = 'cqalsnvodeavhxxa' # Google App Password
-GOOGLE_OAUTH2_CLIENT_ID = "Y655836602340-rt68kot2cgjl4nub7ru91v71rkrtm7qm.apps.googleusercontent.com"
-=======
 # ✅ HTTPS FIX (important behind nginx)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # ✅ COOKIES (production safe)
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
->>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd

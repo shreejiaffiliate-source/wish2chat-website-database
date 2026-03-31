@@ -56,10 +56,6 @@ class Content(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     mobile_number = models.CharField(max_length=15, blank=True, null=True)
-<<<<<<< HEAD
-    profile_picture = models.ImageField(upload_to='profiles/', null=True, blank=True)
-=======
->>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
@@ -103,24 +99,4 @@ class UserDetailShareContent(models.Model):
 
     class Meta:
         verbose_name = "User Activity Log"
-<<<<<<< HEAD
         verbose_name_plural = "User Detail Share Content"
-
-class EmailOTP(models.Model):
-    email = models.EmailField(unique=True)
-    otp = models.CharField(max_length=6)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.email} - {self.otp}"
-
-class FCMDevice(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    fcm_token = models.TextField(unique=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.user.username} - {self.fcm_token[:10]}"
-=======
-        verbose_name_plural = "User Detail Share Content"
->>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
