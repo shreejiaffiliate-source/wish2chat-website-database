@@ -1,10 +1,6 @@
 from django.contrib import admin
 from django import forms
-<<<<<<< HEAD
-from .models import CategoryMaster, SubCategory, Content, UserProfile, UserDetailShareContent, FCMDevice
-=======
 from .models import CategoryMaster, SubCategory, Content, UserProfile, UserDetailShareContent
->>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
 
 @admin.register(CategoryMaster)
 class CategoryMasterAdmin(admin.ModelAdmin):
@@ -188,13 +184,4 @@ class UserShareActivityAdmin(admin.ModelAdmin):
 
     def get_subcategory(self, obj):
         return obj.sub_category.name if obj.sub_category else "-"
-<<<<<<< HEAD
     get_subcategory.short_description = 'Sub Category'
-
-@admin.register(FCMDevice)
-class FCMDeviceAdmin(admin.ModelAdmin):
-    list_display = ('user', 'fcm_token', 'created_at')
-    search_fields = ('user__username', 'fcm_token')
-=======
-    get_subcategory.short_description = 'Sub Category'
->>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd

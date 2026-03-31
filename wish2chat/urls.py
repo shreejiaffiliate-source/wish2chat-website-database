@@ -5,56 +5,21 @@ from rest_framework.routers import DefaultRouter
 from core import views
 from core.views import (
     CategoryMasterViewSet, 
-<<<<<<< HEAD
-    LoginView,
-    SendOTPView, 
-    SubCategoryViewSet, 
-    ContentViewSet, 
-    RegisterUserView, 
-    UserShareActivityView,
-    GoogleLoginView,
-    SendResetOTPView,
-    ResetPasswordConfirmView, 
-    VerifyResetOTPView,
-=======
     LoginView, 
     SubCategoryViewSet, 
     ContentViewSet, 
     RegisterUserView, 
     UserShareActivityView, 
->>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
     get_user_stats,
     get_user_favorites,
     get_user_profile, 
     update_profile_details, # ✅ Import
-<<<<<<< HEAD
-    upload_profile_picture,  # ✅ Import
-    api_home
-=======
     upload_profile_picture ,
      api_home # ✅ Import
->>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
 )
 from django.conf import settings
 from django.conf.urls.static import static
 
-<<<<<<< HEAD
-# def home(request):
-#     return JsonResponse({
-#         "message": "Wish2Chat API is Running",
-#         "endpoints": {
-#             "masters": "/api/masters/",
-#             "sub_categories": "/api/sub-categories/",
-#             "contents": "/api/contents/",
-#             "register": "/api/register/",
-#             "user_stats": "/api/user-stats/",
-#             "favorites": "/api/favorites/",
-#             "profile": "/api/profile/",
-#         }
-#     })
-
-=======
->>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
 router = DefaultRouter()
 router.register(r'masters', CategoryMasterViewSet)
 router.register(r'sub-categories', SubCategoryViewSet)
@@ -74,18 +39,4 @@ urlpatterns = [
     path('api/profile/update-name/', update_profile_details, name='update_name'),
     path('api/profile/update-image/', upload_profile_picture, name='update_image'),
     path('api/login/', LoginView.as_view(), name='login'),
-<<<<<<< HEAD
-    path('api/send-otp/', SendOTPView.as_view(), name='send-otp'),
-    path('api/google-login/', GoogleLoginView.as_view(), name='google_login'),
-    path('api/send-reset-otp/', SendResetOTPView.as_view(), name='send_reset_otp'),
-    path('api/reset-password-confirm/', ResetPasswordConfirmView.as_view(), name='reset_confirm'),
-    path('api/verify-reset-otp/', VerifyResetOTPView.as_view(), name='verify_reset_otp'),
-    path('api/save-fcm-token/', views.save_fcm_token, name='save_fcm_token'),
-]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-=======
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
->>>>>>> dcc7d36cc4db87bba79e05efded22a89b772b6fd
